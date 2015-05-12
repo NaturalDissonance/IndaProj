@@ -1,0 +1,12 @@
+package Mains;
+
+import java.newdawn.slick.state.StateBasedGame;
+
+public class Game extends StateBasedGame {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}
