@@ -18,7 +18,7 @@ public class Meny extends BasicGameState {
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g)
 			throws SlickException {
-		
+		g.drawString("hello", 0, 0);
 
 	}
 

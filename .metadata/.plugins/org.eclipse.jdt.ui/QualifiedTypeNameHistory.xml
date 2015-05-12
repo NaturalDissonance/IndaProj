@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="org.newdawn.slick.SlickException"/>
+<fullyQualifiedTypeName name="org.newdawn.slick.BasicGame"/>
+<fullyQualifiedTypeName name="org.newdawn.slick.AppGameContainer"/>
+<fullyQualifiedTypeName name="org.newdawn.slick.SpriteSheet"/>
+<fullyQualifiedTypeName name="org.newdawn.slick.state.StateBasedGame"/>
+<fullyQualifiedTypeName name="org.newdawn.slick.Image"/>
+<fullyQualifiedTypeName name="java.io.InputStream"/>
+<fullyQualifiedTypeName name="org.newdawn.slick.util.ResourceLoader"/>
+<fullyQualifiedTypeName name="java.awt.Font"/>
+<fullyQualifiedTypeName name="org.newdawn.slick.TrueTypeFont"/>
+</qualifiedTypeNameHistroy>
