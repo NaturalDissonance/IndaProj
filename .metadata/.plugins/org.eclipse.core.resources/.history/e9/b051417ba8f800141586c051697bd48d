@@ -1,0 +1,19 @@
+package Mains;
+
+import org.newdawn.slick.AppGameContainer;
+import org.newdawn.slick.BasicGame;
+
+public class MainGameLoop {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+	
+	public void render(){
+		BasicGame game= new BasicGame("Space Mans Quest");
+		AppGameContainer container = new AppGameContainer(game);
+		container.start();
+	}
+
+}
