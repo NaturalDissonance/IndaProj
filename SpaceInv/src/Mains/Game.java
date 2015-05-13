@@ -8,6 +8,8 @@ import org.newdawn.slick.state.StateBasedGame;
 
 public class Game extends BasicGameState {
 
+	private int i = 0;
+	
 	public Game() {
 		// TODO Auto-generated constructor stub
 	}
@@ -22,13 +24,18 @@ public class Game extends BasicGameState {
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g)
 			throws SlickException {
-		// TODO Auto-generated method stub
+		
+		
 
 	}
 
 	@Override
 	public void update(GameContainer container, StateBasedGame game, int delta)
 			throws SlickException {
+		
+		
+		
+		
 		// TODO Auto-generated method stub
 
 	}
@@ -36,7 +43,7 @@ public class Game extends BasicGameState {
 	@Override
 	public int getID() {
 		// TODO Auto-generated method stub
-		return 0;
+		return 1;
 	}
 
 }
