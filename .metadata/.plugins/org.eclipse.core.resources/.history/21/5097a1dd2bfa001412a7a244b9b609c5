@@ -1,0 +1,59 @@
+package Mains;
+
+import org.newdawn.slick.GameContainer;
+import Entities.Buttons;
+import Entities.ChangeableButton;
+import org.newdawn.slick.Graphics;
+import org.newdawn.slick.SlickException;
+import org.newdawn.slick.state.BasicGameState;
+import org.newdawn.slick.state.StateBasedGame;
+import org.newdawn.slick.state.transition.*;
+
+public class Options extends BasicGameState {
+	Buttons returns;
+	ChangeableButton resolution, fullscreen;
+
+	public void init(GameContainer container, StateBasedGame game)
+			throws SlickException {
+		returns= new Buttons(container.getWidth()/2-100, container.getHeight()-200, 220, 45, "Return");
+		resolution= new ChangeableButton(container.getWidth()/2-250, container.getHeight()-300, 220, 45, "800x600");
+		fullscreen= new ChangeableButton(container.getWidth()/2+50, container.getHeight()-300, 220, 45, "FS: Off");
+		returns.init(container);
+		resolution.init(container);
+		fullscreen.init(container);
+	}
+
+
+	public void render(GameContainer container, StateBasedGame game, Graphics g)
+			throws SlickException {
+		returns.render(g, container);
+		fullscreen.render(g, container);
+		resolution.render(g, container);
+	}
+
+
+	public void update(GameContainer container, StateBasedGame game, int delta)
+			throws SlickException {
+		if(returns.isPressed(container)){
+			game.enterState(0,new FadeOutTransition(), new FadeInTransition());
+		}
+		if(fullscreen.isPressed(container)){
+			if(!container.isFullscreen()){
+				container.setFullscreen(true);
+				fullscreen.changeText("FS: On");
+			}
+			else if(container.isFullscreen()){
+				container.setFullscreen(false);
+				fullscreen.changeText("FS: Off");
+			}
+		}
+
+	}
+
+
+	public int getID() {
+		// TODO Auto-generated method stub
+		return 2;
+	}
+
+}

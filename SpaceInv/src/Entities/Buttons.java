@@ -3,54 +3,64 @@ package Entities;
 import java.awt.Font;
 import java.io.InputStream;
 
+import org.lwjgl.input.Mouse;
+import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
 import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.util.ResourceLoader;
 
+
+
 public class Buttons {
-int x, y, width, height;
-String content;
-TrueTypeFont font;
-boolean isPressed;
-	public Buttons(int x, int y,int w,int h, String content){
+	float x, y, w, h, xtext, ytext;
+	TrueTypeFont font;
+	String text;
+	public Buttons(int x, int y,int w,int h, String text){
 		this.x=x;
 		this.y=y;
-		width=w;
-		height=h;
-		this.content=content;
+		this.w=w;
+		this.h=h;
+		this.text=text;
+
 	}
 	
-	public boolean isPressed(){
-		return isPressed;
+	
+
+	public void render(Graphics g, GameContainer container) {
+		g.setFont(font);
+		g.drawRect(x, y, w, h);
+		g.drawString(text, xtext, ytext);
+		if(isPressed(container)){
+			g.fillRect(x, y, w, h);
+		}
+
+	}
+
+	
+	public boolean isPressed(GameContainer container){
+		float xpos=Mouse.getX();
+		float ypos=container.getHeight()-Mouse.getY();
+		if(((xpos>x)&&(xpos<(x+w)))&&((ypos>y)&&(ypos<(y+h)))){
+			if(Mouse.isButtonDown(0)) return true;
+			}
+		return false;
 	}
 	
 
-	public void render(Graphics g) {
-		if()
 
-	}
-
-
-	public void update() {
-		if()
-
-	}
-
-
-	public void init() {
+	public void init(GameContainer container){
 		try {
-			InputStream inputStream	= ResourceLoader.getResourceAsStream("Fonts/spaceage.ttf");
-	 
+			InputStream inputStream	= ResourceLoader.getResourceAsStream("Fonts/space age.ttf");
 			Font awtFont2 = Font.createFont(Font.TRUETYPE_FONT, inputStream);
-			awtFont2 = awtFont2.deriveFont(24f); // set font size
+			awtFont2 = awtFont2.deriveFont(36f); // set font size
 			font = new TrueTypeFont(awtFont2, false);
 	 
 		} catch (Exception e) {
 			e.printStackTrace();
-		}	
+		}
+		xtext=x+w/2-font.getWidth(text)/2;
+		ytext=y+h/2-font.getHeight(text)/2;
 		
-
 	}
 
 }

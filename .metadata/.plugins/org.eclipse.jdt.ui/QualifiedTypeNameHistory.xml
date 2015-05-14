@@ -10,4 +10,5 @@
 <fullyQualifiedTypeName name="org.newdawn.slick.util.ResourceLoader"/>
 <fullyQualifiedTypeName name="java.awt.Font"/>
 <fullyQualifiedTypeName name="org.newdawn.slick.TrueTypeFont"/>
+<fullyQualifiedTypeName name="org.lwjgl.opengl.GL11"/>
 </qualifiedTypeNameHistroy>
