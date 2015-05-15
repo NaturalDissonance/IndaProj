@@ -18,72 +18,75 @@ public class Player implements Entity {
 	// SETTINGS
 	
 	// The name of the spaceship's image file.
-	private final String SPACESHIP_IMAGE_NAME = "Player_Spaceship.png";
+	private final String SPACESHIP_IMAGE_NAME = "Sprites\\Player_Spaceship.png";
 	
-	// The ship will update its animation (switch sprite) when
-	// this many frames have been rendered.
-	private final int SWITCH_SPRITE_FREQUENCY = 3;
+	// The ship will update its animation (switch sprite) this
+	// many times per second.
+	private final int SWITCH_SPRITE_FREQUENCY = 30;
 	
-	// The scale of the ship
-	private final float SCALE = 3;
+	private final float SCALE = 3; // The scale of the ship.
+	private final int SPEED = 7; // The spaceship moves this many tiles per second.
 	
 	// **************************************************
 	// CODE
 	private Image spaceshipImage;
-	private SpriteSheet sprite;
+	private Image leftSprite;
+	private Image rightSprite;
 	private int x;
 	private int y;
 	
 	private int numberOfRenders = 0;
+	private long timeWhenLastSpriteWasStarted = 0;
+	private long timePassedSinceLastSpriteSwitch = 0;
+	private Image im;
 	private boolean useLeftSprite = true;
 	
 	
 	/**
 	 * Constructs a space ship from the given SpriteSheet.
-	 * The SpriteSheet is hard-coded to be a 46x19 image.
+	 * The SpriteSheet is hard-coded to be two images beside eachother.
 	 */
 	public Player(int xCoordinate, int yCoordinate) {
-		// Create the spaceship image.
+		// Create the spaceship image from the file.
 		try {
 			spaceshipImage = new Image(SPACESHIP_IMAGE_NAME);
 		} catch (SlickException e) {
 			System.err.println("Error: Image file \"" + SPACESHIP_IMAGE_NAME + "\" is missing.");
 		}
 		
-		// Create a sprite from the image.
-		this.sprite = new SpriteSheet(spaceshipImage, spaceshipImage.getWidth()/2, spaceshipImage.getHeight());
-		
-		// Starts using the spaceship sprite
-		sprite.startUse();
+		// Create a sprite from the image
+		SpriteSheet sprite = new SpriteSheet(spaceshipImage, spaceshipImage.getWidth()/2, spaceshipImage.getHeight());
+
+		// Set the two images from the sprite
+		leftSprite = sprite.getSprite(0, 0);
+		leftSprite.rotate(180);
+		rightSprite = sprite.getSprite(1, 0);
+		rightSprite.rotate(180);
 		
 		// Set the ship's initial coordinates and scale.
 		setX(xCoordinate);
 		setY(xCoordinate);
 	}
 
-	public void render(Graphics g) {
-
-	}
 	
-	public void render() {
-		
-		// Draw the spaceship image from either the left or the
-		// right sprite cell, depending on which iteration the
-		// animation is on.
-		Image im;
+	/**
+	 * Renders the spaceship on the screen. Switches sprite
+	 * according to the SWITCH_SPRITE_FREQUENCY global constant.
+	 */
+	public void render(Graphics g) {		
 		if (useLeftSprite) {
-			im = sprite.getSprite(0, 0);
+			im = leftSprite;
 		} else {
-			im = sprite.getSprite(1, 0);
+			im = rightSprite;
 		}
 		
-		im.rotate(180);
 		im.draw(getX(), getY(), SCALE);
 		
-		numberOfRenders++;
-		if (numberOfRenders >= SWITCH_SPRITE_FREQUENCY) {
+		// Too tired to explain how this works...
+		timePassedSinceLastSpriteSwitch = System.nanoTime() - timeWhenLastSpriteWasStarted;
+		if (timePassedSinceLastSpriteSwitch > (1000000000 / SWITCH_SPRITE_FREQUENCY)) {
 			useLeftSprite = !useLeftSprite;
-			numberOfRenders = 0;
+			timeWhenLastSpriteWasStarted = System.nanoTime();
 		}
 	}
 

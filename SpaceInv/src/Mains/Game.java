@@ -2,31 +2,29 @@ package Mains;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
-import org.newdawn.slick.SpriteSheet;
+
 
 import Entities.Player;
 
-@SuppressWarnings("unused")
 public class Game extends BasicGameState {
 
+	// **************************************************
+	// SETTINGS
+	
+	
+	
+	
 	private Player player;
-	
-	
-	public Game() {
-		player = new Player(100, 100);
-
-	}
 
 	@Override
 	public void init(GameContainer container, StateBasedGame game) 
 			throws SlickException {
 		
-		
-
+		// Construct the spaceship
+		player = new Player(200,200);
 	}
 
 	@Override
@@ -34,7 +32,7 @@ public class Game extends BasicGameState {
 			throws SlickException {
 		
 		// Render the player's spaceship
-		player.render();
+		player.render(g);
 	}
 
 	@Override
