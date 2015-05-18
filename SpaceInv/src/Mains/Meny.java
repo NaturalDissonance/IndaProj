@@ -1,35 +1,52 @@
 package Mains;
 
 import org.newdawn.slick.GameContainer;
+import Entities.Buttons;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
+import org.newdawn.slick.state.transition.*;
 
 public class Meny extends BasicGameState {
+	Buttons start, options, quit;
 
-	@Override
 	public void init(GameContainer container, StateBasedGame game)
 			throws SlickException {
-		// TODO Auto-generated method stub
+		start= new Buttons(container.getWidth()/2-110, container.getHeight()/2, 220, 45, "Start");
+		options= new Buttons(container.getWidth()/2-110, container.getHeight()/2+70, 220, 45, "Options");
+		quit= new Buttons(container.getWidth()/2-110, container.getHeight()/2+140, 220, 45, "Quit");
+		start.init(container);
+		options.init(container);
+		quit.init(container);
 
 	}
 
-	@Override
+
 	public void render(GameContainer container, StateBasedGame game, Graphics g)
 			throws SlickException {
-		
+		start.render(g, container);
+		options.render(g, container);
+		quit.render(g, container);
 
 	}
 
-	@Override
+
 	public void update(GameContainer container, StateBasedGame game, int delta)
 			throws SlickException {
-		// TODO Auto-generated method stub
+		if(start.isPressed(container)){
+			game.enterState(1,new FadeOutTransition(), new FadeInTransition());
+		}
+		if(options.isPressed(container)){
+			game.enterState(2,new FadeOutTransition(), new FadeInTransition());
+		}
+		if(quit.isPressed(container)){
+			container.exit();
+		}
 
 	}
 
-	@Override
+
 	public int getID() {
 		// TODO Auto-generated method stub
 		return 0;

@@ -11,20 +11,14 @@ import Entities.Player;
 
 public class Game extends BasicGameState {
 
-	// **************************************************
-	// SETTINGS
-	
-	
-	
-	
 	private Player player;
 
 	@Override
 	public void init(GameContainer container, StateBasedGame game) 
 			throws SlickException {
 		
-		// Construct the spaceship
-		player = new Player(200,200);
+		//player = new Player(100, 100);
+
 	}
 
 	@Override
@@ -32,7 +26,7 @@ public class Game extends BasicGameState {
 			throws SlickException {
 		
 		// Render the player's spaceship
-		player.render(g);
+		//player.render();
 	}
 
 	@Override
