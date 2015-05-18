@@ -13,9 +13,9 @@ public class Meny extends BasicGameState {
 
 	public void init(GameContainer container, StateBasedGame game)
 			throws SlickException {
-		start= new Buttons(container.getWidth()/2-100, container.getHeight()/2, 220, 45, "Start");
-		options= new Buttons(container.getWidth()/2-100, container.getHeight()/2+70, 220, 45, "Options");
-		quit= new Buttons(container.getWidth()/2-100, container.getHeight()/2+140, 220, 45, "Quit");
+		start= new Buttons(container.getWidth()/2-110, container.getHeight()/2, 220, 45, "Start");
+		options= new Buttons(container.getWidth()/2-110, container.getHeight()/2+70, 220, 45, "Options");
+		quit= new Buttons(container.getWidth()/2-110, container.getHeight()/2+140, 220, 45, "Quit");
 		start.init(container);
 		options.init(container);
 		quit.init(container);

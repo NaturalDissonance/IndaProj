@@ -2,7 +2,6 @@
 <qualifiedTypeNameHistroy>
 <fullyQualifiedTypeName name="org.newdawn.slick.SlickException"/>
 <fullyQualifiedTypeName name="org.newdawn.slick.BasicGame"/>
-<fullyQualifiedTypeName name="org.newdawn.slick.AppGameContainer"/>
 <fullyQualifiedTypeName name="org.newdawn.slick.SpriteSheet"/>
 <fullyQualifiedTypeName name="org.newdawn.slick.state.StateBasedGame"/>
 <fullyQualifiedTypeName name="org.newdawn.slick.Image"/>
@@ -11,4 +10,7 @@
 <fullyQualifiedTypeName name="java.awt.Font"/>
 <fullyQualifiedTypeName name="org.newdawn.slick.TrueTypeFont"/>
 <fullyQualifiedTypeName name="org.lwjgl.opengl.GL11"/>
+<fullyQualifiedTypeName name="org.newdawn.slick.AppGameContainer"/>
+<fullyQualifiedTypeName name="org.newdawn.slick.ScalableGame"/>
+<fullyQualifiedTypeName name="Mains.Main"/>
 </qualifiedTypeNameHistroy>

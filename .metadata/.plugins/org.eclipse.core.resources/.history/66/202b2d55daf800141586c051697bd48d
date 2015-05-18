@@ -1,9 +1,0 @@
-package Entities;
-
-public class Buttons {
-
-	public Buttons() {
-		// TODO Auto-generated constructor stub
-	}
-
-}

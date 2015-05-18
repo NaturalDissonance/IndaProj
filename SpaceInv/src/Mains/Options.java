@@ -17,13 +17,13 @@ public class Options extends BasicGameState {
 
 	public void init(GameContainer container, StateBasedGame game)
 			throws SlickException {
-		returns= new Buttons(container.getWidth()/2-100, container.getHeight()-200, 220, 45, "Return");
-		resolution= new ChangeableButton(container.getWidth()/2-250, container.getHeight()-300, 220, 45, "800x600");
-		fullscreen= new ChangeableButton(container.getWidth()/2+50, container.getHeight()-300, 220, 45, "FS: Off");
+		returns= new Buttons(container.getWidth()/2-110, container.getHeight()-200, 220, 45, "Return");
+		resolution= new ChangeableButton(container.getWidth()/2-300, container.getHeight()-300, 280, 45, "800x600");
+		fullscreen= new ChangeableButton(container.getWidth()/2+20, container.getHeight()-300, 280, 45, "FS: Off");
 		returns.init(container);
 		resolution.init(container);
 		fullscreen.init(container);
-		resolution.setState(0);
+		resolution.setState(2);
 	}
 
 
@@ -42,7 +42,7 @@ public class Options extends BasicGameState {
 		}
 		if(fullscreen.isPressed(container)){
 			if(!container.isFullscreen()){
-				Main.app.setFullscreen(false);
+				Main.app.setFullscreen(true);
 				fullscreen.changeText("FS: On");
 			}
 			else if(container.isFullscreen()){

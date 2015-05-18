@@ -2,6 +2,7 @@ package Mains;
 
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.ScalableGame;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
@@ -9,6 +10,8 @@ public class Main extends StateBasedGame {
 	
 	private static final int FPS_LIMIT = 60;
     static AppGameContainer app;
+    public static final int DEFAULT_WIDTH=800;
+    public static final int DEFAULT_HEIGHT=600;
 	
 	
 	
@@ -19,8 +22,8 @@ public class Main extends StateBasedGame {
 
 	public static void main(String[] args) {
 			try {
-				app = new AppGameContainer(new Main("vidya"));
-				app.setDisplayMode(800, 600, true);
+				app = new AppGameContainer(new ScalableGame(new Main("vidya"), DEFAULT_WIDTH, DEFAULT_HEIGHT));
+				app.setDisplayMode(800, 600, false);
 				app.setAlwaysRender(true);
 				app.setTargetFrameRate(FPS_LIMIT); // limits the FPS
 				app.start();
@@ -31,6 +34,7 @@ public class Main extends StateBasedGame {
 			
 
 	}
+	
 	
 
 	@Override
