@@ -1,9 +1,14 @@
 package Entities;
 
+import org.newdawn.slick.Animation;
+import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
+import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
+
+import Mains.Main;
 
 /**
  * The Player class, doing stuff like rendering the spaceship,
@@ -12,91 +17,96 @@ import org.newdawn.slick.SpriteSheet;
  * The spaceship's sprite is hard-coded to use two
  * images beside each other.
  */
+@SuppressWarnings("unused")
 public class Player implements Entity {
 	
 	// **************************************************
 	// SETTINGS
 	
 	// The name of the spaceship's image file.
-	private final String SPACESHIP_IMAGE_NAME = "Images/Player_Spaceship.png";
+	private final String SPACESHIP_IMAGE_NAME = "Images\\Player_Spaceship.png";
 	
-	// The ship will update its animation (switch sprite) when
-	// this many frames have been rendered.
-	private final int SWITCH_SPRITE_FREQUENCY = 3;
+	// The ship will update its animation (switch sprite) this
+	// many times per second.
+	private final int SWITCH_SPRITE_FREQUENCY = 50;
 	
-	// The scale of the ship
-	private final float SCALE = 3;
+	private final float SCALE = 3; // The scale of the ship.
+	private final int SPEED = 700; // The spaceship moves this many pixels per second.
+	private final float SPACESHIP_BOTTOM_OFFSET = 20; // The gap between the bottom of the screen and the spaceship, in pixels
 	
 	// **************************************************
 	// CODE
 	private Image spaceshipImage;
-	private SpriteSheet sprite;
-	private int x;
-	private int y;
+	private Image leftSprite;
+	private Image rightSprite;
+	private double x;
+	private double y;
+	Animation ani;
 	
 	private int numberOfRenders = 0;
+	private long timeWhenLastSpriteWasStarted = 0;
+	private long timePassedSinceLastSpriteSwitch = 0;
+	private double timePassedSinceLastRender = 0;
+	private Image im;
 	private boolean useLeftSprite = true;
+	
+	Input input;
 	
 	
 	/**
-	 * Constructs a space ship from the given SpriteSheet.
-	 * The SpriteSheet is hard-coded to be a 46x19 image.
+	 * Constructs a spaceship from the given SpriteSheet.
+	 * The SpriteSheet is hard-coded to be two images beside each other.
 	 */
-	public Player(int xCoordinate, int yCoordinate) {
-		// Create the spaceship image.
-		try {
-			spaceshipImage = new Image(SPACESHIP_IMAGE_NAME);
-		} catch (SlickException e) {
-			System.err.println("Error: Image file \"" + SPACESHIP_IMAGE_NAME + "\" is missing.");
-		}
+	public Player() {
 		
-		// Create a sprite from the image.
-		this.sprite = new SpriteSheet(spaceshipImage, spaceshipImage.getWidth()/2, spaceshipImage.getHeight());
-		
-		// Starts using the spaceship sprite
-		sprite.startUse();
-		
-		// Set the ship's initial coordinates and scale.
-		setX(xCoordinate);
-		setY(xCoordinate);
 	}
 
-	public void render(Graphics g) {
-
-	}
 	
-	public void render() {
-		
-		// Draw the spaceship image from either the left or the
-		// right sprite cell, depending on which iteration the
-		// animation is on.
-		Image im;
-		if (useLeftSprite) {
-			im = sprite.getSprite(0, 0);
-		} else {
-			im = sprite.getSprite(1, 0);
-		}
-		
-		im.rotate(180);
-		im.draw(getX(), getY(), SCALE);
-		
-		numberOfRenders++;
-		if (numberOfRenders >= SWITCH_SPRITE_FREQUENCY) {
-			useLeftSprite = !useLeftSprite;
-			numberOfRenders = 0;
-		}
+	/**
+	 * Renders the spaceship on the screen. Switches sprite
+	 * according to the SWITCH_SPRITE_FREQUENCY global constant.
+	 */
+	public void render(Graphics g) {
+		ani.getCurrentFrame().setRotation(180);
+		ani.draw((float)(getX()), (float)(getY()));
 	}
 
 	@Override
 	public void update() {
-		// TODO Auto-generated method stub
-
+		// Move the spaceship sideways, if it's within the game's bounds
+		timePassedSinceLastRender = (System.currentTimeMillis() - timePassedSinceLastRender)/1000;
+		if (input.isKeyDown(input.KEY_LEFT) && getX() > 10) {
+			setX(getX() - SPEED*timePassedSinceLastRender);
+		} else if (input.isKeyDown(input.KEY_RIGHT) && getX() < Main.DEFAULT_WIDTH - ani.getCurrentFrame().getWidth() - 10) {
+			setX(getX() + SPEED*timePassedSinceLastRender);
+		}
+		
+		timePassedSinceLastRender = System.currentTimeMillis();
 	}
 
 	@Override
-	public void init() {
-		//sprite= new SpriteSheet()
-
+	public void init(GameContainer c) {
+		input = c.getInput(); // Used for keyboard input	
+		
+		// Create the spaceship image from the file.
+		try {
+			spaceshipImage = new Image(SPACESHIP_IMAGE_NAME);
+		} catch (Exception e) {
+			System.err.println("Error: Image file \"" + SPACESHIP_IMAGE_NAME + "\" is missing.");
+			System.exit(1);
+		}
+		
+		// Scale the image and create the sprite
+		spaceshipImage = spaceshipImage.getScaledCopy(SCALE);
+		SpriteSheet sprite = new SpriteSheet(spaceshipImage, spaceshipImage.getWidth()/2, spaceshipImage.getHeight());
+		
+		// Create the animation from the sprite
+		ani = new Animation(sprite, 0, 0, 1, 0, false, SWITCH_SPRITE_FREQUENCY, true);
+		
+		// Set the ship's initial coordinates..
+		setX(Main.DEFAULT_WIDTH/2); // Center of screen
+		int bottomOfScreen = (int)(Main.ASPECT_RATIO_Y*Main.DEFAULT_WIDTH/Main.ASPECT_RATIO_X);
+		setY(bottomOfScreen - spaceshipImage.getHeight() - SPACESHIP_BOTTOM_OFFSET);
 	}
 	
 	// **************************************************
@@ -104,28 +114,28 @@ public class Player implements Entity {
 	/**
 	 * Returns the x-coordinate.
 	 */
-	public int getX() {
+	public double getX() {
 		return x;
 	}
 
 	/**
 	 * Sets the x-coordinate.
 	 */
-	public void setX(int x) {
+	public void setX(double x) {
 		this.x = x;
 	}
 
 	/**
 	 * Returns the y-coordinate.
 	 */
-	public int getY() {
+	public double getY() {
 		return y;
 	}
 
 	/**
 	 * Sets the y-coordinate.
 	 */
-	public void setY(int y) {
+	public void setY(double y) {
 		this.y = y;
 	}
 	

@@ -17,8 +17,8 @@ public class Game extends BasicGameState {
 	public void init(GameContainer container, StateBasedGame game) 
 			throws SlickException {
 		
-		//player = new Player(100, 100);
-
+		player = new Player();
+		player.init(container);
 	}
 
 	@Override
@@ -26,18 +26,14 @@ public class Game extends BasicGameState {
 			throws SlickException {
 		
 		// Render the player's spaceship
-		//player.render();
+		player.render(g);
 	}
 
 	@Override
 	public void update(GameContainer container, StateBasedGame game, int delta)
 			throws SlickException {
 		
-		
-		
-		
-		// TODO Auto-generated method stub
-
+		player.update();
 	}
 
 	@Override

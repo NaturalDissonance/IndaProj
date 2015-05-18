@@ -27,11 +27,6 @@ public class Buttons {
 	
 
 	public void render(Graphics g, GameContainer container) {
-		float xpos=Mouse.getX();
-		float ypos=(container.getHeight()-Mouse.getY());
-		g.drawString("o",xpos,ypos);
-		String xgpos=xpos+"ss";
-		g.drawString(xgpos,50,50);
 		g.setFont(font);
 		g.drawRect(x, y, w, h);
 		g.drawString(text, xtext, ytext);

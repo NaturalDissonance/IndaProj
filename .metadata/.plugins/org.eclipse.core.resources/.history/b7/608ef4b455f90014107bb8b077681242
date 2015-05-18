@@ -1,0 +1,38 @@
+package Entities;
+
+import org.newdawn.slick.Graphics;
+import org.newdawn.slick.SpriteSheet;
+
+public class Player implements Entity {
+	SpriteSheet sprite;
+	int xCord;
+	int yCord;
+	
+	/**
+	 * Constructs a space ship from the given SpriteSheet.
+	 * The SpriteSheet is hard-coded to be a 46x19 image.
+	 */
+	public Player(SpriteSheet sprite) {
+		this.sprite = sprite;
+	}
+
+	@Override
+	public void render(Graphics g) {
+		// TODO Auto-generated method stub
+
+		
+	}
+
+	@Override
+	public void update() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void init() {
+		//sprite= new SpriteSheet()
+
+	}
+
+}

@@ -1,0 +1,57 @@
+package Mains;
+
+import org.newdawn.slick.AppGameContainer;
+import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.SlickException;
+import org.newdawn.slick.state.StateBasedGame;
+
+import Menus.Meny;
+import Menus.Options;
+
+public class Main extends StateBasedGame {
+	
+	// **************************************************
+	// SETTINGS
+	private static final int FPS_LIMIT = 60;
+	private static final boolean START_IN_FULLSCREEN = false;
+	private static final int DEFAULT_WIDTH = 800;
+	
+	// **************************************************
+	// CODE
+    public static AppGameContainer app;
+    
+    
+	public Main(String name) {
+		super(name);
+	}
+
+	
+	/**
+	 * First method that runs when the application starts.
+	 */
+	public static void main(String[] args) {
+			try {
+				app = new AppGameContainer(new Main("vidya"));
+				app.setDisplayMode(DEFAULT_WIDTH, (int)(9*DEFAULT_WIDTH/16), START_IN_FULLSCREEN);
+				System.out.println(DEFAULT_WIDTH + "x" + (int)(9*DEFAULT_WIDTH/16));
+				app.setAlwaysRender(true);
+				app.setTargetFrameRate(FPS_LIMIT); // limits the FPS
+				app.start();
+			} catch (SlickException e) {
+				System.err.println("Error: Main.main() caught SlickException.");
+			}
+	}
+	
+	
+	/**
+	 * Second method that runs when the application starts. Is called
+	 * from somewhere in the main() method's try/catch block.
+	 */
+	@Override
+	public void initStatesList(GameContainer container) throws SlickException {
+		this.addState(new Meny()); // starts the game in the "Meny" game state, state ID = 0
+		this.addState(new Options()); // state ID = 2
+		this.addState(new Game()); // state ID = 1
+	}
+	
+}

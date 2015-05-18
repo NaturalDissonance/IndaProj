@@ -1,0 +1,10 @@
+package Entities;
+
+public class ChangeableButton extends Buttons {
+
+	public ChangeableButton(int x, int y, int w, int h, String text) {
+		super(x, y, w, h, text);
+		// TODO Auto-generated constructor stub
+	}
+
+}
