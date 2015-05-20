@@ -43,10 +43,7 @@ public class Player implements Entity {
 	private double y;
 	Animation ani;
 	
-	private int numberOfRenders = 0;
-	private long timeWhenLastSpriteWasStarted = 0;
-	private long timePassedSinceLastSpriteSwitch = 0;
-	private double timePassedSinceLastRender = 0;
+	private double timePassedSinceLastUpdate = 0;
 	private Image im;
 	private boolean useLeftSprite = true;
 	
@@ -74,14 +71,14 @@ public class Player implements Entity {
 	@Override
 	public void update() {
 		// Move the spaceship sideways, if it's within the game's bounds
-		timePassedSinceLastRender = (System.currentTimeMillis() - timePassedSinceLastRender)/1000;
+		timePassedSinceLastUpdate = (System.currentTimeMillis() - timePassedSinceLastUpdate)/1000;
 		if (input.isKeyDown(input.KEY_LEFT) && getX() > 10) {
-			setX(getX() - SPEED*timePassedSinceLastRender);
+			setX(getX() - SPEED*timePassedSinceLastUpdate);
 		} else if (input.isKeyDown(input.KEY_RIGHT) && getX() < Main.DEFAULT_WIDTH - ani.getCurrentFrame().getWidth() - 10) {
-			setX(getX() + SPEED*timePassedSinceLastRender);
+			setX(getX() + SPEED*timePassedSinceLastUpdate);
 		}
 		
-		timePassedSinceLastRender = System.currentTimeMillis();
+		timePassedSinceLastUpdate = System.currentTimeMillis();
 	}
 
 	@Override
